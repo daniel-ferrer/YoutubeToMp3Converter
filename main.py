@@ -45,17 +45,16 @@ if __name__ == "__main__":
     if not os.path.exists(output_dir):
         os.makedirs(output_dir)
 
-    # set filenames
     mp4_filename = download_video(yt_url, output_dir)
+    if mp4_filename is None:
+        print("Video download failed.")
+        exit(1)
+
     mp3_filename = mp4_filename.replace(".mp4", ".mp3")
 
     # set source (mp4) & target (mp3) file paths
     mp4_filepath = os.path.join(output_dir, mp4_filename)
     mp3_filepath = os.path.join(output_dir, mp3_filename)
-
-    if mp4_filename is None:
-        print("Video download failed.")
-        exit(1)
 
     if convert_to_mp3(mp4_filepath, mp3_filepath):
         print(f"MP3 file saved at {mp3_filepath}")
